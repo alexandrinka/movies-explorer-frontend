@@ -1,0 +1,118 @@
+.login {
+    max-width: 396px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.login__logo {
+    margin-top: 70px;
+}
+
+.login__title {
+    margin: 0;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 38px;
+}
+
+.login__form {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__label {
+    color: #8B8B8B;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+
+.login__label:last-of-type {
+    margin-top: 20px;
+}
+
+.login__input {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #2F2F2F;
+    color: #FFF;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.login__submit-btn {
+    margin-top: 179px;
+    margin-bottom: 16px;
+    border: none;
+    border-radius: 3px;
+    background: #4285F4;
+    color: #FFF;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    max-width: 1140px;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.login__signup {
+    color: #8B8B8B;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.login__link {
+    color: #4285F4;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px){
+    .login__logo {
+        margin-top: 232px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .login__logo {
+        margin-top: 56px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .login__title {
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .login__form {
+        margin: 80px 30px 0;
+    }
+
+    .login__submit-btn {
+        margin-top: 267px;
+    }
+
+    .login__signup {
+        font-size: 12px;
+    }
+}

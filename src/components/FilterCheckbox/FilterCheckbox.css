@@ -1,0 +1,49 @@
+.check{
+    margin-bottom: 69px;
+}
+
+.check__iunput {
+    position: absolute;
+    appearance: none;
+}
+
+.check__box {
+    position: absolute;
+    width: 36px;
+    height: 20px;
+    background-image: url('../../images/checkboxoff.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    margin-left: -50px;
+}
+
+.check__label {
+    padding-left: 48px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    vertical-align: middle;
+}
+
+.check__iunput:checked+.check__box {
+    background-image: url('../../images/checkboxon.svg');
+    margin-left: -48px;
+}
+
+@media screen and (max-width: 768px){
+    .check{
+        margin-bottom: 51px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .check{
+        margin-bottom: 49px;
+    }
+
+    .check__label {
+        font-size: 11px;
+    }
+}
