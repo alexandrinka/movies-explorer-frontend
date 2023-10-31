@@ -2,11 +2,11 @@ import React from 'react'
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 
-export default function Profile() {
+export default function Profile({ onPopupOpen }) {
     return (
         <>
-            <Header />
-            <div className='profile'>
+            <Header onPopupOpen={onPopupOpen}/>
+            <main className='profile'>
                 <h1 className='profile__title'>Привет, Александра!</h1>
                 <div className='profile__info'>
                     <p className='profile__designation'>Имя</p>
@@ -18,7 +18,7 @@ export default function Profile() {
                 </div>
                 <Link className='profile__edit'>Редактировать</Link>
                 <Link to="/signin" className='profile__exit'>Выйти из аккаунта</Link>
-            </div>
+            </main>
         </>
     )
 }

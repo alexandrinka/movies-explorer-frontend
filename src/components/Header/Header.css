@@ -1,15 +1,12 @@
 .header {
-  max-width: 1140px;
-  width: 100%;
   display: flex;
   text-align: center;
   align-items: center;
-  margin: 0 auto;
-  padding: 18px 0;
+  padding: 18px 70px;
 }
 
 .header_blue {
-  padding: 18px calc((100% - 1140px) / 2);
+  padding: 18px 70px;
   background-color: #073042;
 }
 
@@ -20,25 +17,35 @@
   vertical-align: middle;
 }
 
+@media screen and (min-width: 1280px) {
+  .header {
+    padding: 18px calc((100% - 1140px) / 2);
+  }
+
+  .header_blue {
+    padding: 18px calc((100% - 1140px) / 2);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .header {
     max-width: 708px;
     justify-content: space-between;
-    padding: 16px 0;
+    padding: 16px 30px;
   }
 
   .header_blue {
-    padding: 16px calc((100% - 708px) / 2);
+    padding: 16px 30px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .header {
     max-width: 292px;
-    padding: 16px 0;
+    padding: 16px 14px;
   }
 
   .header_blue {
-    padding: 16px calc((100% - 292px) / 2);
+    padding: 16px 14px;
   }
 }

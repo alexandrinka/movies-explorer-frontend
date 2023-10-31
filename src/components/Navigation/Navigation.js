@@ -3,7 +3,7 @@ import Account from '../Account/Account';
 import { Link, NavLink } from 'react-router-dom';
 import menuBurger from '../../images/iconMenuBurger.svg';
 
-export default function Navigation({ loggedIn }) {
+export default function Navigation({ loggedIn, onPopupOpen }) {
     return (
         <nav className='navigation'>
             {
@@ -24,7 +24,7 @@ export default function Navigation({ loggedIn }) {
                             <Account />
                         </div>
                         <div className='navigation__burger'>
-                            <img className='navigation__img-burger' src={menuBurger} alt="иконка бургера"></img>
+                            <img className='navigation__img-burger' onClick={onPopupOpen} src={menuBurger} alt="иконка бургера"></img>
                         </div>
                     </>
                 ) : (

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Login() {
     return (
-        <div className="login">
+        <main className="login">
             <img className='login__logo' src={logo} alt="Логотип"></img>
             <h1 className='login__title'>Рады видеть!</h1>
             <form className='login__form'>
@@ -15,6 +15,6 @@ export default function Login() {
                 <button className='login__submit-btn' type="submit">Войти</button>
                 <p className='login__signup'>Ещё не зарегистрированы? <Link to='/signup' className='login__link'>Регистрация</Link></p>
             </form>
-        </div>
+        </main>
     )
 }

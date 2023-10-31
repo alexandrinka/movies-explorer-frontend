@@ -1,8 +1,7 @@
 .aboutProject {
-    max-width: 1140px;
-    width: 100%;
     margin: 0 auto;
     background-color: #202020;
+    padding: 0 70px;
 }
 
 .aboutProject__title {
@@ -103,9 +102,15 @@
     line-height: 17px;
 }
 
+@media screen and (min-width: 1280px) {
+    .aboutProject {
+      padding: 0 calc((100% - 1140px) / 2);
+    }
+  }
+
 @media screen and (max-width: 768px) {
     .aboutProject {
-        max-width: 668px;
+        padding: 0 50px;
     }
 
     .aboutProject__title {
@@ -129,7 +134,7 @@
 
 @media screen and (max-width: 320px) {
     .aboutProject {
-        max-width: 284px;
+        padding: 0 14px;
     }
 
     .aboutProject__title {

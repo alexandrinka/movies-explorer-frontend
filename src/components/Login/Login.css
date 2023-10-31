@@ -1,7 +1,5 @@
 .login {
-    max-width: 396px;
-    width: 100%;
-    margin: 0 auto;
+    padding: 0 calc((100% - 396px) / 2);
 }
 
 .login__logo {
@@ -37,10 +35,9 @@
 }
 
 .login__input {
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+    box-sizing: border-box;
+    max-width: 396px;
+    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 8px;
@@ -85,15 +82,26 @@
     text-decoration: none;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .login__logo {
         margin-top: 232px;
     }
 }
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 456px) {
+    .login{
+        padding: 0 30px;
+    }
+
+}
+
+@media screen and (max-width: 320px) {
+    .login {
+        padding: 56px calc((100% - 396px) / 2) 0;
+    }
+
     .login__logo {
-        margin-top: 56px;
+        margin-top: 0;
         display: block;
         margin-left: auto;
         margin-right: auto;

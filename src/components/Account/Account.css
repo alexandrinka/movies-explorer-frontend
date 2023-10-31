@@ -48,7 +48,10 @@
 
 @media screen and (max-width: 768px) {
     .account__link{
-        margin-top: 500px;
+        position: absolute;
+        left: 50%;
+        top: calc(100vh - 90px - 32px);
+        transform: translate(-50%, 0);
     }
 
     .account_blue{
@@ -62,6 +65,9 @@
 
 @media screen and (max-width: 320px) {
     .account__link{
-        margin-top: 410px;
+        position: absolute;
+        left: 50%;
+        top: calc(100vh - 46px - 32px);
+        transform: translate(-50%, 0);
     }
 }

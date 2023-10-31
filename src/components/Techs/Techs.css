@@ -1,8 +1,5 @@
 .techs {
-    max-width: 1140px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 calc((100% - 1140px) / 2);
+    padding: 0 70px;
     background-color: #272727;
 }
 
@@ -69,13 +66,21 @@
     letter-spacing: -0.56px;
 }
 
+@media screen and (min-width: 1280px) {
+    .techs {
+      padding: 0 calc((100% - 1140px) / 2);
+    }
+  }
+
 @media screen and (max-width: 768px) {
     .techs {
-        max-width: 668px;
-        padding: 0 calc((100% - 668px) / 2);
+        padding: 0 50px;
     }
 
     .techs__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 84px);
+        gap: 10px;
         max-width: 648px;
         padding-bottom: 90px;
     }
@@ -104,13 +109,7 @@
 
 @media screen and (max-width: 320px) {
     .techs {
-        max-width: 284px;
-        padding: 0 calc((100% - 284px) / 2);
-    }
-
-    .techs__list {
-        max-width: 648px;
-        padding-bottom: 90px;
+        padding: 0 14px;
     }
 
     .techs__item {

@@ -5,13 +5,15 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import More from '../More/More';
 import SearchForm from '../SearchForm/SearchForm';
 
-export default function Movies() {
+export default function Movies({ onPopupOpen }) {
     return (
         <>
-            <Header />
-            <SearchForm />
-            <MoviesCardList typeCard="allMovies" />
-            <More />
+            <Header onPopupOpen={onPopupOpen}/>
+            <main className='main'>
+                <SearchForm />
+                <MoviesCardList typeCard="allMovies" />
+                <More />
+            </main>
             <Footer />
         </>
     )
