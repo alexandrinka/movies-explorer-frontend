@@ -9,9 +9,9 @@ export default function Login() {
             <h1 className='login__title'>Рады видеть!</h1>
             <form className='login__form'>
                 <label className='login__label'>E-mail</label>
-                <input type="text" className='login__input'></input>
+                <input type="text" className='login__input' required></input>
                 <label className='login__label'>Пароль</label>
-                <input type="password" className='login__input'></input>
+                <input type="password" className='login__input' required></input>
                 <button className='login__submit-btn' type="submit">Войти</button>
                 <p className='login__signup'>Ещё не зарегистрированы? <Link to='/signup' className='login__link'>Регистрация</Link></p>
             </form>

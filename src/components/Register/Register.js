@@ -9,11 +9,11 @@ export default function Register() {
             <h1 className='register__title'>Добро пожаловать!</h1>
             <form className='register__form'>
                 <label className='register__label'>Имя</label>
-                <input type="text" className='register__input'></input>
+                <input type="text" className='register__input' required></input>
                 <label className='register__label'>E-mail</label>
-                <input type="text" className='register__input'></input>
+                <input type="text" className='register__input' required></input>
                 <label className='register__label'>Пароль</label>
-                <input type="password" className='register__input'></input>
+                <input type="password" className='register__input' required></input>
                 <button className='register__submit-btn' type="submit">Зарегистрироваться</button>
                 <p className='register__signup'>Уже зарегистрированы? <Link to='/signin' className='register__link'>Войти</Link></p>
             </form>
