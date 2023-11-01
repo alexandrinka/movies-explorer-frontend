@@ -8,8 +8,8 @@ export default function Footer() {
             <div className='footer__box'>
                 <p className='footer__year'>© 2023</p>
                 <div className='footer__link'>
-                    <Link to='https://practicum.yandex.ru/' target="_block" className='footer__link-item'>Яндекс.Практикум</Link>
-                    <Link to='https://github.com/alexandrinka' target="_block" className='footer__link-item'>Github</Link>
+                    <Link to='https://practicum.yandex.ru/' target="_blank" className='footer__link-item'>Яндекс.Практикум</Link>
+                    <Link to='https://github.com/alexandrinka' target="_blank" className='footer__link-item'>Github</Link>
                 </div>
             </div>
         </footer>

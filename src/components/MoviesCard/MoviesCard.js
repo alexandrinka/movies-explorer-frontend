@@ -7,7 +7,7 @@ export default function MoviesCard({ typeCard }) {
     return (
         <>
             <li className="elements__list-item">
-                <div className="elements__container_img">
+                <div className="elements__container-img">
                     <img className="elements__img" src={picOne} alt='Картинка один' />
                 </div>
                 <div className="elements__description">
@@ -18,7 +18,7 @@ export default function MoviesCard({ typeCard }) {
             </li>
 
             <li className="elements__list-item">
-                <div className="elements__container_img">
+                <div className="elements__container-img">
                     <img className="elements__img" src={picTwo} alt='Картинка один' />
                 </div>
                 <div className="elements__description">
@@ -29,7 +29,7 @@ export default function MoviesCard({ typeCard }) {
             </li>
 
             <li className="elements__list-item">
-                <div className="elements__container_img">
+                <div className="elements__container-img">
                     <img className="elements__img" src={picThree} alt='Картинка один' />
                 </div>
                 <div className="elements__description">
@@ -39,7 +39,7 @@ export default function MoviesCard({ typeCard }) {
                 <p className="elements__hour">1ч 42м</p>
             </li>
             <li className="elements__list-item">
-                <div className="elements__container_img">
+                <div className="elements__container-img">
                     <img className="elements__img" src={picThree} alt='Картинка один' />
                 </div>
                 <div className="elements__description">
@@ -49,7 +49,7 @@ export default function MoviesCard({ typeCard }) {
                 <p className="elements__hour">1ч 42м</p>
             </li>
             <li className="elements__list-item">
-                <div className="elements__container_img">
+                <div className="elements__container-img">
                     <img className="elements__img" src={picThree} alt='Картинка один' />
                 </div>
                 <div className="elements__description">
