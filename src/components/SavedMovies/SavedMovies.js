@@ -4,13 +4,15 @@ import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-export default function SavedMovies() {
+export default function SavedMovies({ onPopupOpen }) {
     return (
         <>
-            <Header />
-            <SearchForm />
-            <MoviesCardList typeCard = "savedMovies"/>
-            <div className='savedmovies__devider'></div>
+            <Header onPopupOpen={onPopupOpen}/>
+            <main className='main'>
+                <SearchForm />
+                <MoviesCardList typeCard="savedMovies" />
+                <div className='savedmovies__devider'></div>
+            </main>
             <Footer />
         </>
     )

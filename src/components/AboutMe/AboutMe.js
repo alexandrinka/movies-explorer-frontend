@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 export default function AboutMe() {
     return (
-        <div className="aboutMe" id="aboutMe">
+        <section className="aboutMe" id="aboutMe">
             <h2 className='aboutMe__title'>Студент</h2>
-            <div className='aboutMe_col'>
-                <div className='aboutMe_colLeft'>
-                    <div className='aboutMe_info'>
+            <div className='aboutMe__col'>
+                <div className='aboutMe__colLeft'>
+                    <div className='aboutMe__info'>
                         <h3 className='aboutMe__name'>Александра</h3>
                         <p className='aboutMe__subtitle'>Фронтенд-разработчик, 23 года</p>
                         <p className='aboutMe__text'>Я родился и живу в Саратове, закончил факультет экономики СГУ. 
@@ -18,10 +18,10 @@ export default function AboutMe() {
                     </div>
                     <Link to='https://github.com/alexandrinka' className='aboutMe__link'>Github</Link>
                 </div>
-                <div className='aboutMe_colRight'>
+                <div className='aboutMe__colRight'>
                     <img className="aboutMe__photo" src={myPhoto} alt="Логотип" />
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

@@ -1,7 +1,5 @@
 .register {
-    max-width: 396px;
-    width: 100%;
-    margin: 0 auto;
+    padding: 0 calc((100% - 396px) / 2);
 }
 
 .register__logo {
@@ -38,10 +36,9 @@
 }
 
 .register__input {
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+    box-sizing: border-box;
+    max-width: 396px;
+    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 8px;
@@ -92,9 +89,20 @@
     }
 }
 
+@media screen and (max-width: 456px) {
+    .register{
+        padding: 0 30px;
+    }
+
+}
+
 @media screen and (max-width: 320px){
+    .register {
+        padding-top: 56px;
+    }
+
     .register__logo {
-        margin-top: 56px;
+        margin: 0;
         display: block;
         margin-left: auto;
         margin-right: auto;

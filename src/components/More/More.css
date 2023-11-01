@@ -1,11 +1,8 @@
 .more {
-    max-width: 1140px;
-    width: 100%;
-    margin: 50px calc((100% - 1140px) / 2) 80px;
+    margin: 50px 70px 80px;
 }
 
 .more__btn {
-    max-width: 1140px;
     width: 100%;
     border-radius: 6px;
     background-color: #2F2F2F;
@@ -20,24 +17,20 @@
     line-height: 16px;
 }
 
+@media screen and (min-width: 1280px){
+    .more {
+        margin: 50px calc((100% - 1140px) / 2) 80px;
+    }
+}
+
 @media screen and (max-width: 768px){
     .more {
-        max-width: 708px;
-        margin: 50px calc((100% - 708px) / 2) 80px;
-    }
-
-    .more__btn {
-        max-width: 708px;
+        margin: 50px 30px 80px;
     }
 }
 
 @media screen and (max-width: 320px){
     .more {
-        max-width: 300px;
-        margin: 50px calc((100% - 300px) / 2) 80px;
-    }
-
-    .more__btn {
-        max-width: 300px;
+        margin: 50px 10px 80px;
     }
 }
