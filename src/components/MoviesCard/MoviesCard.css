@@ -6,7 +6,6 @@
     position: relative;
     border-radius: 6px;
     background-color: #222;
-    cursor: pointer;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08),
         0 2px 2px rgba(0, 0, 0, 0.08);
 }
@@ -24,9 +23,12 @@
 .elements__img {
     max-height: 203px;
     height: 100%;
+    width: 100%;
     margin: 0;
     object-fit: cover;
     object-position: top;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
 }
 
 .elements__description {

@@ -9,7 +9,7 @@ export default function PopupNavigation({ isOpen, onPopupClose }) {
             <div className='popup__content'>
                 <img className='popup__close' src={popupClose} alt="Кнопка закрыть" onClick={onPopupClose}></img>
                 <div className='popup__menu'>
-                    <NavLink exact to='/' className='popup__menu-item' onClick={onPopupClose}>
+                    <NavLink to='/' className='popup__menu-item' onClick={onPopupClose}>
                         Главная
                     </NavLink>
                     <NavLink to='/movies' className='popup__menu-item' onClick={onPopupClose}>

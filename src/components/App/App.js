@@ -10,7 +10,6 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import PopupNavigation from "../PopupNavigation/PopupNavigation";
 import Preloader from '../Preloader/Preloader';
 
-
 function App() {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
@@ -33,7 +32,6 @@ function App() {
         <Route path="/signup" element={<Register />} />
       </Routes>
       <PopupNavigation isOpen={isPopupOpen} onPopupClose={handlePopupClose} />
-      <Preloader />
     </div>
   );
 }

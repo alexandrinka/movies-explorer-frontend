@@ -17,6 +17,42 @@
     margin: 0 auto;
 }
 
+.elements__message{
+    max-width: 380px;
+    width: 100%;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    color: #EE3465;
+    margin: 0 auto;
+}
+
+.elements__more {
+    width: 100%;
+    border-radius: 6px;
+    background-color: #2F2F2F;
+    border: none;
+    padding: 11px 0 9px;
+    text-align: center;
+    margin: 50px 0 80px;
+
+    color: #FFF;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.elements__more:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.elements__more_hidden{
+    display: none;
+}
+
 @media screen and (max-width: 768px){
     .elements {
         padding: 0 30px 10px;

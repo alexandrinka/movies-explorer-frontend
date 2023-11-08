@@ -11,7 +11,7 @@ export default function Navigation({ loggedIn, onPopupOpen }) {
                     <>
                         <div className='navigation__autorized'>
                             <div className='navigation__menu'>
-                                <NavLink exact to='/' className='navigation__menu-item navigation__menu-item_invisible'>
+                                <NavLink to='/' className='navigation__menu-item navigation__menu-item_invisible'>
                                     Главная
                                 </NavLink>
                                 <NavLink to='/movies' className='navigation__menu-item'>
