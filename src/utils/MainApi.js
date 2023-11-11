@@ -1,7 +1,9 @@
 class MainApi {
-    constructor({ address, token }) {
+    constructor({ address }) {
         this._address = address;
+        this._token = localStorage.getItem('jwt');
         this._headers = {
+            authorization: `Bearer ${this._token}`,
             "Content-Type": "application/json",
         };
     }
@@ -9,7 +11,7 @@ class MainApi {
     _handleResponse = (res) => {
         return res.ok
             ? res.json()
-            : Promise.reject(`Ошибка ${res.status}`);
+            : res.json().then((err) => Promise.reject({ err, res }));
     };
 
     getMovies() {
@@ -26,64 +28,45 @@ class MainApi {
         }).then(this._handleResponse);
     }
 
-    updateInfoUser({ name, about }) {
+    updateInfoUser(name, email) {
         return fetch(`${this._address}/users/me`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({
                 name,
-                about,
+                email,
             }),
         }).then(this._handleResponse);
     }
 
-    createCard({ name, link }) {
-        return fetch(`${this._address}/cards`, {
+    createMovie({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id }) {
+        return fetch(`${this._address}/movies`, {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name,
-                link,
+                "country": country,
+                "director": director,
+                "duration": duration,
+                "year": year,
+                "description": description,
+                "image": `https://api.nomoreparties.co${image.url}`,
+                "trailerLink": trailerLink,
+                "nameRU": nameRU,
+                "nameEN": nameEN,
+                "thumbnail": `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
+                "movieId": id
             }),
         }).then(this._handleResponse);
     }
 
-    deleteCard(id) {
-        return fetch(`${this._address}/cards/${id}`, {
+    deleteMovie(movieId) {
+        return fetch(`${this._address}/movies/${movieId}`, {
             method: "DELETE",
-            headers: this._headers,
-        }).then(this._handleResponse);
-    }
-
-    _putLike(id) {
-        return fetch(`${this._address}/cards/${id}/likes`, {
-            method: "PUT",
-            headers: this._headers,
-        }).then(this._handleResponse);
-    }
-
-    _deleteLike(id) {
-        return fetch(`${this._address}/cards/${id}/likes`, {
-            method: "DELETE",
-            headers: this._headers,
-        }).then(this._handleResponse);
-    }
-
-    likeCard(cardId, isLiked) {
-        return isLiked ? this._deleteLike(cardId) : this._putLike(cardId);
-    }
-
-    updateAvatar({avatar}) {
-        return fetch(`${this._address}/users/me/avatar`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                avatar,
-            }),
             headers: this._headers,
         }).then(this._handleResponse);
     }
 }
 
 export const api = new MainApi({
-    address: "https://api.dimplomalexa.nomoredomainsrocks.ru/"
+    address: "https://api.dimplomalexa.nomoredomainsrocks.ru"
 });

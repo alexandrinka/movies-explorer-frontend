@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useFormWithValidation } from '../../utils/Validation';
 
-export default function SearchForm({ onSubmit, onCheckbox, isShortMovie }) {
+export default function SearchForm({ onSubmit, savedMoviesPage, onCheckbox, isShortMovie }) {
     const { values, errors, isValid, setValues, handleChange, setIsValid } = useFormWithValidation();
 
     function handleSubmit(e) {
@@ -11,12 +11,14 @@ export default function SearchForm({ onSubmit, onCheckbox, isShortMovie }) {
     };
 
     useEffect(() => {
-        const input = localStorage.getItem('queryMovies');
-        if (input) {
-            setValues({ searchFilm: input });
-            setIsValid(true);
+        if (!savedMoviesPage) {
+            const input = localStorage.getItem('queryMovies');
+            if (input) {
+                setValues({ searchFilm: input });
+                setIsValid(true);
+            }
         }
-    }, [setValues, setIsValid]);
+    }, [savedMoviesPage, setValues, setIsValid]);
 
     return (
         <form className="search" onSubmit={handleSubmit}>
@@ -29,10 +31,10 @@ export default function SearchForm({ onSubmit, onCheckbox, isShortMovie }) {
                 required>
             </input>
             <button className="search__btn" type="submit" disabled={!isValid}></button>
-            <span className={errors.searchFilm ? 'search__input-error search-film-error search__field-error_active' : 'search__input-error search-film-error'}>
+            <span className={errors.searchFilm ? 'search__field-error_active' : ''}>
                 {errors.searchFilm ? 'Нужно ввести ключевое слово' : ''}
             </span>
-            <FilterCheckbox onCheckbox={onCheckbox} isShortMovie={isShortMovie}/>
+            <FilterCheckbox onCheckbox={onCheckbox} isShortMovie={isShortMovie} />
         </form>
     )
 }

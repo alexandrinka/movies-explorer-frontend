@@ -69,6 +69,10 @@
         display: block;
     }
 
+    .navigation__img-burger{
+        cursor: pointer;
+    }
+
     .navigation__autorized{
         display: none;
     }

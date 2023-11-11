@@ -18,7 +18,7 @@ export default function PopupNavigation({ isOpen, onPopupClose }) {
                     <NavLink to='/saved-movies' className='popup__menu-item' onClick={onPopupClose}>
                         Сохраненные фильмы
                     </NavLink>
-                    <Account />
+                    <Account onPopupClose={onPopupClose} popupNavigation={true} />
                 </div>
             </div>
         </div>

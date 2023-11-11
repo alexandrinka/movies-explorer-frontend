@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 
 
-export default function MoviesCardList({ typeCard, listMovies, isPreloader, isError, isEmpty }) {
+export default function MoviesCardList({ listMovies, listLikedMovies, isPreloader, isError, isEmpty, onLikeMovie, onDislikeMovie, savedMoviesPage }) {
     const [windoWidth, setWidth] = useState(window.innerWidth);
     const [resultMovies, setResultMovies] = useState([]);
     const [cardsShowParams, setCardsShowParams] = useState({ count: 0, more: 0 });
@@ -46,8 +46,42 @@ export default function MoviesCardList({ typeCard, listMovies, isPreloader, isEr
         setIsBtnMore(true);
     }, [listMovies, cardsShowParams]);
 
+    function getSavedMovieCard(arr, id) {
+        return arr.find((item) => {
+            return item.movieId === id;
+        });
+    };
+
+    // ф-ия создания массива избранных карточек
+    function getSavedMoviesPage() {
+        return listMovies.map((item) => (
+            <MoviesCard
+                key={item._id}
+                card={item}
+                savedPage={savedMoviesPage}
+                onDislikeMovie={onDislikeMovie}
+            />
+        ))
+    };
+
+    // ф-ия создания массива стандартных карточек
+    function getInitialMoviesPage() {
+        return resultMovies.map((item) => {
+            const likedMovieCard = getSavedMovieCard(listLikedMovies, item.id);
+            const likedMovieId = likedMovieCard ? likedMovieCard._id : null;
+            return (
+                <MoviesCard
+                    key={item.id}
+                    card={{ ...item, _id: likedMovieId }}
+                    onLikeMovie={onLikeMovie}
+                    onDislikeMovie={onDislikeMovie}
+                    isLiked={likedMovieCard ? true : false}
+                />)
+        })
+    };
+
     return (
-        <section className={typeCard === "allMovies" ? "elements" : "elements elements_margin"}>
+        <section className={true ? "elements" : "elements elements_margin"}>
             {isPreloader ? (
                 <Preloader />
             ) : (
@@ -60,12 +94,7 @@ export default function MoviesCardList({ typeCard, listMovies, isPreloader, isEr
                 ) : (
                     <>
                         <ul className="elements__list">
-                            {resultMovies.map((item) => (
-                                <MoviesCard
-                                    card={item}
-                                    typeCard={typeCard}
-                                />)
-                            )}
+                            {savedMoviesPage ? getSavedMoviesPage() : getInitialMoviesPage()}
                         </ul>
                         <button className={isBtnMore && (listMovies.length !== resultMovies.length) ? "elements__more" : "elements__more elements__more_hidden"} type="button" onClick={showMoreMovies}>Ещё</button>
                     </>

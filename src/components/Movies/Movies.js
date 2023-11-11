@@ -6,40 +6,43 @@ import SearchForm from '../SearchForm/SearchForm';
 import { moviesApi } from "../../utils/MoviesApi";
 import { filterMovies, filterShortMovies } from '../../utils/AdditionalFunc';
 
-export default function Movies({ onPopupOpen }) {
-    const forCheckbox = localStorage.getItem('shortMovies') === 'true' ? 'true' : 'false';
+export default function Movies({ onPopupOpen, loggedIn, onLikeMovie, onDislikeMovie, listLikedMovies }) {
+
+    const getAllMovies = JSON.parse(localStorage.getItem('allmovies')) ? JSON.parse(localStorage.getItem('allmovies')) : [];
+    const getQueryMovies = localStorage.getItem('queryMovies') ? localStorage.getItem('queryMovies') : '';
+    const getShortMovie = localStorage.getItem('shortMovies') ? (localStorage.getItem('shortMovies') === "true" ? true : false) : false;
 
     const [filteredMovies, setFilteredMovies] = useState([]);
-    const [isShortMovie, setIsShortMovie] = useState(false);
-    const [allMovies, setAllMovies] = useState([]);
+    const [isShortMovie, setIsShortMovie] = useState(getShortMovie);
+    const [allMovies, setAllMovies] = useState(getAllMovies);
     const [isPreloader, setIsPreloader] = useState(false);
-    const [isqueryMovies, setIsQueryMovies] = useState('');
+    const [isqueryMovies, setIsQueryMovies] = useState(getQueryMovies);
     const [isError, setIsError] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
 
-    function handleSetFilteredMovies(movies, query) {
+    function handleSetFilteredMovies(movies, query, isShortMovie) {
         let moviesList = filterMovies(movies, query, isShortMovie);
-        console.log(isShortMovie);
-        if(isShortMovie){
-            console.log('short');
+        if (isShortMovie) {
             moviesList = filterShortMovies(moviesList);
         }
         setFilteredMovies(moviesList);
-        localStorage.setItem('allmovies', JSON.stringify(moviesList));
+        localStorage.setItem('moviesOnDemand', JSON.stringify(moviesList));
     }
 
     function handleSubmit(value) {
         localStorage.setItem('shortMovies', isShortMovie);
         localStorage.setItem('queryMovies', value);
         setIsQueryMovies(value);
+        setIsPreloader(true);
         if (allMovies.length) {
-            handleSetFilteredMovies(allMovies, value);
+            handleSetFilteredMovies(allMovies, value, isShortMovie);
+            setIsPreloader(false);
         } else {
-            setIsPreloader(true);
             moviesApi.getMovies()
                 .then((data) => {
                     setAllMovies(data);
-                    handleSetFilteredMovies(data, value);
+                    handleSetFilteredMovies(data, value, isShortMovie);
+                    localStorage.setItem('allmovies', JSON.stringify(data));
                 })
                 .catch((err) => {
                     setIsError(true);
@@ -57,18 +60,15 @@ export default function Movies({ onPopupOpen }) {
         localStorage.setItem('shortMovies', e.target.checked);
     }
 
-    // проверяем есть ли данные в хранилище
     useEffect(() => {
-        const arr = JSON.parse(localStorage.getItem('allmovies'));
+        const arr = JSON.parse(localStorage.getItem('moviesOnDemand'));
         if (arr && !isqueryMovies) {
-            setIsShortMovie(localStorage.getItem('shortMovies'));
-            console.log(isShortMovie);
+            setIsShortMovie(localStorage.getItem('shortMovies') === "true" ? true : false);
             setFilteredMovies(isShortMovie ? filterShortMovies(arr) : arr);
             handleCheckForEmptiness(arr);
         }
     }, [isqueryMovies, isShortMovie])
 
-    // по новому запросу фильтруем фильмы
     useEffect(() => {
         if (isqueryMovies) {
             const arr = filterMovies(allMovies, isqueryMovies, isShortMovie);
@@ -79,10 +79,22 @@ export default function Movies({ onPopupOpen }) {
 
     return (
         <>
-            <Header onPopupOpen={onPopupOpen} />
+            <Header onPopupOpen={onPopupOpen} loggedIn={loggedIn} />
             <main className='main'>
-                <SearchForm onSubmit={handleSubmit} onCheckbox={handleCheckbox} isShortMovie={isShortMovie} />
-                <MoviesCardList isPreloader={isPreloader} listMovies={filteredMovies} isError={isError} isEmpty={isEmpty} typeCard="allMovies" />
+                <SearchForm
+                    onSubmit={handleSubmit}
+                    onCheckbox={handleCheckbox}
+                    isShortMovie={isShortMovie} />
+
+                <MoviesCardList
+                    isPreloader={isPreloader}
+                    listMovies={filteredMovies}
+                    listLikedMovies={listLikedMovies}
+                    isError={isError}
+                    isEmpty={isEmpty}
+                    onLikeMovie={onLikeMovie}
+                    onDislikeMovie={onDislikeMovie}
+                />
             </main>
             <Footer />
         </>

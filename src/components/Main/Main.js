@@ -8,10 +8,10 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 
-export default function Main({ onPopupOpen }) {
+export default function Main({ onPopupOpen, loggedIn }) {
     return (
         <>
-            <Header onPopupOpen={onPopupOpen} />
+            <Header onPopupOpen={onPopupOpen} loggedIn={loggedIn}/>
             <main className='main'>
                 <Promo />
                 <NavTab />
