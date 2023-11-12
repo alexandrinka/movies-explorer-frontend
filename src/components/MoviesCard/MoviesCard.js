@@ -1,63 +1,45 @@
-import React from 'react';
-import picOne from '../../images/picOne.png';
-import picTwo from '../../images/picTwo.png';
-import picThree from '../../images/picThree.png';
+import { Link } from 'react-router-dom';
 
-export default function MoviesCard({ typeCard }) {
+export default function MoviesCard({ card, onLikeMovie, onDislikeMovie, savedPage, isLiked }) {
+
+    function setIsHourFilm(time) {
+        if (time % 60 === 0) {
+            return (Math.trunc(time / 60) + "ч ");
+        }
+        else if (time > 60) {
+            return (Math.trunc(time / 60) + "ч " + time % 60 + "м");
+        }
+        else {
+            return time % 60 + "м";
+        }
+    };
+
+    const cardLikeButtonClassName = (
+        isLiked ? "elements__btn elements__like elements__like_active" : "elements__btn elements__like"
+    );
+
+    function handleLikeClick() {
+        onLikeMovie(card);
+    }
+
+    function handleDislikeMovie() {
+        onDislikeMovie(card);
+    }
+
     return (
-        <>
-            <li className="elements__list-item">
-                <div className="elements__container_img">
-                    <img className="elements__img" src={picOne} alt='Картинка один' />
-                </div>
-                <div className="elements__description">
-                    <p className="elements__name">33 слова о дизайне</p>
-                    <button type="button" className={typeCard === "allMovies" ? "elements__btn elements__like" : "elements__btn elements__cross"}></button>
-                </div>
-                <p className="elements__hour">1ч 47м</p>
-            </li>
-
-            <li className="elements__list-item">
-                <div className="elements__container_img">
-                    <img className="elements__img" src={picTwo} alt='Картинка один' />
-                </div>
-                <div className="elements__description">
-                    <p className="elements__name">Киноальманах «100 лет дизайна»</p>
-                    <button type="button" className={typeCard === "allMovies" ? "elements__btn elements__like" : "elements__btn elements__cross"}></button>
-                </div>
-                <p className="elements__hour">1ч 3м</p>
-            </li>
-
-            <li className="elements__list-item">
-                <div className="elements__container_img">
-                    <img className="elements__img" src={picThree} alt='Картинка один' />
-                </div>
-                <div className="elements__description">
-                    <p className="elements__name">В погоне за Бенкси</p>
-                    <button type="button" className={typeCard === "allMovies" ? "elements__btn elements__like" : "elements__btn elements__cross"}></button>
-                </div>
-                <p className="elements__hour">1ч 42м</p>
-            </li>
-            <li className="elements__list-item">
-                <div className="elements__container_img">
-                    <img className="elements__img" src={picThree} alt='Картинка один' />
-                </div>
-                <div className="elements__description">
-                    <p className="elements__name">В погоне за Бенкси</p>
-                    <button type="button" className={typeCard === "allMovies" ? "elements__btn elements__like" : "elements__btn elements__cross"}></button>
-                </div>
-                <p className="elements__hour">1ч 42м</p>
-            </li>
-            <li className="elements__list-item">
-                <div className="elements__container_img">
-                    <img className="elements__img" src={picThree} alt='Картинка один' />
-                </div>
-                <div className="elements__description">
-                    <p className="elements__name">В погоне за Бенкси</p>
-                    <button type="button" className={typeCard === "allMovies" ? "elements__btn elements__like" : "elements__btn elements__cross"}></button>
-                </div>
-                <p className="elements__hour">1ч 42м</p>
-            </li>
-        </>
+        <li className="elements__list-item" key={card.nameRU}>
+            <Link className="elements__container-img" to={card.trailerLink} target='_blank'>
+                <img className="elements__img" src={!savedPage ? `https://api.nomoreparties.co${card.image.url}` : `${card.image}`} alt={`${card.nameRU}`} />
+            </Link>
+            <div className="elements__description">
+                <p className="elements__name">{card.nameRU}</p>
+                <button
+                    type="button"
+                    className={!savedPage ? cardLikeButtonClassName : "elements__btn elements__cross"}
+                    onClick={savedPage || isLiked ? handleDislikeMovie : handleLikeClick}>
+                </button>
+            </div>
+            <p className="elements__hour">{setIsHourFilm(card.duration)}</p>
+        </li>
     )
 }

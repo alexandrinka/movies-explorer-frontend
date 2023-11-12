@@ -1,7 +1,5 @@
 .login {
-    max-width: 396px;
-    width: 100%;
-    margin: 0 auto;
+    padding: 0 calc((100% - 396px) / 2);
 }
 
 .login__logo {
@@ -37,10 +35,9 @@
 }
 
 .login__input {
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+    box-sizing: border-box;
+    max-width: 396px;
+    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 8px;
@@ -52,8 +49,22 @@
     line-height: normal;
 }
 
+.login__field-error_active{
+    display: inline-block;
+    color: #EE3465;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 10px;
+}
+
+.login__input-error{
+    color: #EE3465;
+    margin: 0;
+}
+
 .login__submit-btn {
-    margin-top: 179px;
     margin-bottom: 16px;
     border: none;
     border-radius: 3px;
@@ -68,6 +79,13 @@
     width: 100%;
     text-align: center;
     padding: 15px 0;
+    cursor: pointer;
+}
+
+.login__submit-btn:disabled{
+    background-color: #F8F8F8;
+    color: #C2C2C2;
+    cursor: default;
 }
 
 .login__signup {
@@ -85,15 +103,36 @@
     text-decoration: none;
 }
 
-@media screen and (max-width: 768px){
+.login__error{
+    text-align: center;
+    color: #EE3465;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 179px 0 20px;
+}
+
+@media screen and (max-width: 768px) {
     .login__logo {
         margin-top: 232px;
     }
 }
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 456px) {
+    .login{
+        padding: 0 30px;
+    }
+
+}
+
+@media screen and (max-width: 320px) {
+    .login {
+        padding: 56px calc((100% - 396px) / 2) 0;
+    }
+
     .login__logo {
-        margin-top: 56px;
+        margin-top: 0;
         display: block;
         margin-left: auto;
         margin-right: auto;

@@ -6,7 +6,6 @@
     position: relative;
     border-radius: 6px;
     background-color: #222;
-    cursor: pointer;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08),
         0 2px 2px rgba(0, 0, 0, 0.08);
 }
@@ -16,7 +15,7 @@
     background: url('../../images/cross.svg') no-repeat center;
 }
 
-.elements__container_img {
+.elements__container-img {
     max-height: 203px;
     height: 100%;
 }
@@ -24,9 +23,12 @@
 .elements__img {
     max-height: 203px;
     height: 100%;
+    width: 100%;
     margin: 0;
     object-fit: cover;
     object-position: top;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
 }
 
 .elements__description {
@@ -82,7 +84,7 @@
         max-height: 190px;
     }
 
-    .elements__container_img {
+    .elements__container-img {
         max-width: 336px;
         max-height: 190px;
     }
@@ -92,7 +94,7 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 399px) {
     .elements__list-item {
         margin-bottom: 14px;
     }
@@ -106,7 +108,7 @@
         max-height: 168px;
     }
 
-    .elements__container_img {
+    .elements__container-img {
         max-width: 300px;
         max-height: 168px;
     }

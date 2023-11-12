@@ -1,8 +1,8 @@
-.check{
+.check {
     margin-bottom: 69px;
 }
 
-.check__iunput {
+.check__input {
     position: absolute;
     appearance: none;
 }
@@ -16,6 +16,7 @@
     background-repeat: no-repeat;
     object-fit: cover;
     margin-left: -50px;
+    cursor: pointer;
 }
 
 .check__label {
@@ -27,19 +28,25 @@
     vertical-align: middle;
 }
 
-.check__iunput:checked+.check__box {
+/* .check__input:checked+.check__box {
+    background-image: url('../../images/checkboxon.svg');
+    margin-left: -48px;
+} */
+
+
+.check__box_active {
     background-image: url('../../images/checkboxon.svg');
     margin-left: -48px;
 }
 
-@media screen and (max-width: 768px){
-    .check{
+@media screen and (max-width: 768px) {
+    .check {
         margin-bottom: 51px;
     }
 }
 
-@media screen and (max-width: 320px){
-    .check{
+@media screen and (max-width: 320px) {
+    .check {
         margin-bottom: 49px;
     }
 
