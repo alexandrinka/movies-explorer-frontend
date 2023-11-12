@@ -18,16 +18,15 @@ export default function SavedMovies({ onPopupOpen, loggedIn, listLikedMovies, on
     };
 
     function handleCheckbox(e) {
-        setIsShortMovie(e.target.value);
+        setIsShortMovie(e.target.checked);
     };
 
     useEffect(() => {
         const arr = filterMovies(listLikedMovies, isqueryMovies, isShortMovie);
         setFilteredMovies(arr);
-        if (isqueryMovies) {
-            arr.length === 0 ? setIsEmpty(true) : setIsEmpty(false);
-        }
+        arr.length === 0 ? setIsEmpty(true) : setIsEmpty(false);
     }, [isqueryMovies, isShortMovie, listLikedMovies]);
+
     return (
         <>
             <Header onPopupOpen={onPopupOpen} loggedIn={loggedIn} />

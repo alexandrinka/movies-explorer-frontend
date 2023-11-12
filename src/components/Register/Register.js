@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/Validation';
 
 export default function Register({ onRegister, infoMessage }) {
-    const { values, errors, isValid, handleChange } = useFormWithValidation();
+    const { values, errors, isValid, handleChange, setIsValid } = useFormWithValidation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onRegister(values.name, values.email, values.password);
+        setIsValid(false);
     }
 
     return (
@@ -54,7 +55,7 @@ export default function Register({ onRegister, infoMessage }) {
                     {errors.password ? errors.password : ''}
                 </span>
 
-                <p className='register__error'>{infoMessage.code === 500 ? "500 На сервере произошла ошибка." : infoMessage.message}</p>
+                <p className='register__error'>{infoMessage.code === 500 ? "500 На сервере произошла ошибка." : infoMessage.type === "register" ? infoMessage.message : ""}</p>
                 <button className='register__submit-btn' type="submit" disabled={!isValid}>Зарегистрироваться</button>
                 <p className='register__signup'>Уже зарегистрированы? <Link to='/signin' className='register__link'>Войти</Link></p>
             </form>

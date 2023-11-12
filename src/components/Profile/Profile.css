@@ -59,7 +59,6 @@
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 228px;
 }
 
 .profile__edit {
@@ -101,6 +100,12 @@
     padding: 13px 0 15px;
 }
 
+.profile__save:disabled{
+    background-color: #F8F8F8;
+    color: #C2C2C2;
+    cursor: default;
+}
+
 .profile__field-error_active {
     display: inline-block;
     color: #EE3465;
@@ -122,12 +127,20 @@
 }
 
 .profile__error {
+    margin-top: 228px;
+    margin-bottom: 10px;
     text-align: center;
     color: #EE3465;
     font-size: 11px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.profile__success {
+    margin-top: 10px;
+    margin-bottom: 228px;
+    color: #3456F3;
 }
 
 .profile__data:-webkit-autofill,

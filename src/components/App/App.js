@@ -12,18 +12,19 @@ import PopupNavigation from "../PopupNavigation/PopupNavigation";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import * as auth from '../../utils/auth';
 import { api } from "../../utils/MainApi";
-import { setToken, getToken, removeToken } from '../../utils/token';
+import { SUCCESSFUL_CODE, TOKEN_KEY } from '../../utils/constants';
 
 function App() {
+  const getLoggenIn = localStorage.getItem(TOKEN_KEY) ? true : '';
+
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(getLoggenIn);
   const [currentUser, setCurrentUser] = useState({});
   const [likedMovies, setLikedMovies] = useState([]);
-  const [token, setTokenState] = useState(getToken());
   const [infoMessage, setInfoMessage] = useState({
     isShown: false,
     message: '',
-    code: 200,
+    code: SUCCESSFUL_CODE,
   });
 
   const handlePopupOpen = () => {
@@ -50,19 +51,22 @@ function App() {
           isShown: true,
           message: err.message,
           code: res.status,
+          type: "register"
         });
       })
   }
 
+
   function handleLogin(email, password) {
     auth.authorize(email, password)
       .then(res => {
-        navigate('/movies', { replace: true });
-        setTokenState(res.token);
-        setLoggedIn(true);
-        setToken(res.token);
-        api._token = res.token;
-        ResetInfoMessage();
+        if (res.token) {
+          ResetInfoMessage();
+          setLoggedIn(true);
+          localStorage.setItem(TOKEN_KEY, res.token);
+          api._token = res.token;
+          navigate('/movies');
+        }
       })
       .catch(({ err, res }) => {
         setInfoMessage({
@@ -70,6 +74,7 @@ function App() {
           isShown: true,
           message: err.message,
           code: res.status,
+          type: "login"
         });
       })
   }
@@ -78,7 +83,12 @@ function App() {
     api.updateInfoUser(name, email)
       .then((res) => {
         setCurrentUser(res);
-        ResetInfoMessage();
+        setInfoMessage({
+          ...infoMessage,
+          isShown: true,
+          message: 'Данные пользователя успешно изменены',
+          code: SUCCESSFUL_CODE,
+        });
       })
       .catch(({ err, res }) => {
         setInfoMessage({
@@ -86,6 +96,7 @@ function App() {
           isShown: true,
           message: err.message,
           code: res.status,
+          type: "profile"
         });
       })
   }
@@ -95,7 +106,7 @@ function App() {
       setLikedMovies([newMovie, ...likedMovies]);
       ResetInfoMessage();
     })
-      .catch(err => console.log("Ошибка добавления фильма: " + err))
+      .catch(({ err, res }) => console.log(`${res.status} Ошибка добавления фильма. ${err.message}`))
   }
 
   function handleDeleteMovie(movie) {
@@ -105,32 +116,8 @@ function App() {
         setLikedMovies(newMoviesList);
         ResetInfoMessage();
       })
-      .catch(err => console.log("Ошибка удаления фильма: " + err))
+      .catch(({ err, res }) => console.log(`${res.status} Ошибка удаления фильма. ${err.message}`))
   }
-
-  const tokenCheck = () => {
-    if (!token) {
-      return;
-    }
-    auth.checkToken(token).then((res) => {
-      if (res) {
-        setLoggedIn(true);
-        navigate('/movies', { replace: true });
-      }
-    })
-      .catch(({ err, res }) => {
-        setInfoMessage({
-          ...infoMessage,
-          isShown: true,
-          message: "При авторизации произошла ошибка. Токен не передан или передан не в том формате.",
-          code: res.status,
-        });
-      })
-  }
-
-  useEffect(() => {
-    tokenCheck();
-  }, []);
 
   useEffect(() => {
     if (loggedIn) {
@@ -139,7 +126,7 @@ function App() {
           setCurrentUser(data);
           ResetInfoMessage();
         })
-        .catch(err => console.log("Ошибка при получении данных о пользователе: " + err))
+        .catch(({ err, res }) => console.log(`${res.status} Не удалось получить данные о пользователи. ${err.message}`))
     }
   }, [loggedIn]);
 
@@ -150,7 +137,7 @@ function App() {
           setLikedMovies(data);
           ResetInfoMessage();
         })
-        .catch(err => console.log("Ошибка при получении данных о фильмах: " + err))
+        .catch(({ err, res }) => console.log(`${res.status} Не удалось получить данные о фильмах. ${err.message}`))
     }
   }, [loggedIn]);
 
@@ -158,7 +145,6 @@ function App() {
     setCurrentUser({});
     setLoggedIn(false);
     navigate('/', { replace: true });
-    removeToken();
     localStorage.clear();
   }
 
@@ -168,7 +154,7 @@ function App() {
         ...infoMessage,
         isShown: false,
         message: '',
-        code: 200,
+        code: SUCCESSFUL_CODE,
       });
     }
   };
@@ -196,7 +182,8 @@ function App() {
             listLikedMovies={likedMovies}
             onDislikeMovie={handleDeleteMovie} />} />
 
-          <Route path="/profile" element={<Profile
+          <Route path="/profile" element={<ProtectedRouteElement
+            element={Profile}
             loggedIn={loggedIn}
             onPopupOpen={handlePopupOpen}
             currentUser={currentUser}
@@ -210,7 +197,7 @@ function App() {
         </Routes>
         <PopupNavigation isOpen={isPopupOpen} onPopupClose={handlePopupClose} />
       </div>
-    </CurrentUserContext.Provider>  
+    </CurrentUserContext.Provider>
   );
 }
 

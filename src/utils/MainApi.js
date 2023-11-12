@@ -1,11 +1,9 @@
+import { BASE_URL, TOKEN_KEY } from './constants';
+
 class MainApi {
     constructor({ address }) {
         this._address = address;
-        this._token = localStorage.getItem('jwt');
-        this._headers = {
-            authorization: `Bearer ${this._token}`,
-            "Content-Type": "application/json",
-        };
+        this._token = localStorage.getItem(TOKEN_KEY);
     }
 
     _handleResponse = (res) => {
@@ -17,21 +15,30 @@ class MainApi {
     getMovies() {
         return fetch(`${this._address}/movies`, {
             method: "GET",
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                "Content-Type": "application/json",
+            }
         }).then(this._handleResponse);
     }
 
     getUserInfo() {
         return fetch(`${this._address}/users/me`, {
             method: "GET",
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                "Content-Type": "application/json",
+            }
         }).then(this._handleResponse);
     }
 
     updateInfoUser(name, email) {
         return fetch(`${this._address}/users/me`, {
             method: "PATCH",
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({
                 name,
                 email,
@@ -42,7 +49,10 @@ class MainApi {
     createMovie({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id }) {
         return fetch(`${this._address}/movies`, {
             method: "POST",
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({
                 "country": country,
                 "director": director,
@@ -62,11 +72,14 @@ class MainApi {
     deleteMovie(movieId) {
         return fetch(`${this._address}/movies/${movieId}`, {
             method: "DELETE",
-            headers: this._headers,
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                "Content-Type": "application/json",
+            },
         }).then(this._handleResponse);
     }
 }
 
 export const api = new MainApi({
-    address: "https://api.dimplomalexa.nomoredomainsrocks.ru"
+    address: BASE_URL
 });

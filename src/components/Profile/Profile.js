@@ -5,16 +5,40 @@ import { useFormWithValidation } from '../../utils/Validation';
 
 export default function Profile({ onPopupOpen, loggedIn, onProfile, infoMessage, currentUser, onSignOut }) {
     const [isEditable, setisEditable] = useState(false);
-    const { values, errors, isValid, handleChange } = useFormWithValidation();
+    const { values, errors, isValid, setIsValid, setValues, handleChange } = useFormWithValidation();
+
+    useEffect(() => {
+        if (currentUser) {
+            setValues({
+                name: currentUser.name,
+                email: currentUser.email,
+            });
+        }
+    }, [setValues, currentUser]);
+
+    useEffect(() => {
+        if (currentUser.name === values.name && currentUser.email === values.email) {
+            setIsValid(false);
+        }
+    }, [setIsValid, values, currentUser]);
+
+    useEffect(() => {
+        if (infoMessage.isShown && infoMessage.code === 200) {
+            setisEditable(false);
+        }
+    }, [setisEditable, infoMessage.isShown, infoMessage.code]);
 
     function changeEditable() {
         setisEditable(true);
+        infoMessage.isShown = false;
+        infoMessage.message = "";
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onProfile(values.name, values.email);
         setisEditable(false);
+        setIsValid(false);
     }
 
     return (
@@ -54,9 +78,12 @@ export default function Profile({ onPopupOpen, loggedIn, onProfile, infoMessage,
                         {errors.email === "Введите данные в указанном формате." ? 'Введите email в формате "example@example.ru"' : errors.email}
                     </span>
 
-                    {isEditable || infoMessage.isShown ? (
+                    <p className={infoMessage.code === 200 && infoMessage.type === "profile" && !isEditable ? "profile__error profile__success" : "profile__error"}>
+                        {infoMessage.code === 500 && infoMessage.type === "profile" ? "500 На сервере произошла ошибка." : infoMessage.message}
+                    </p>
+
+                    {isEditable || (infoMessage.isShown && infoMessage.code !== 200 && infoMessage.type === "profile") ? (
                         <div className="profile__button">
-                            <p className="profile__error">{infoMessage.code === 500 ? "500 На сервере произошла ошибка." : infoMessage.message}</p>
                             <button
                                 className={`profile__save`}
                                 type='submit'

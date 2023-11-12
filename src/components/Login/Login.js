@@ -3,12 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/Validation';
 
-export default function Login({ onLogin, infoMessage }) {
-    const { values, errors, isValid, handleChange } = useFormWithValidation();
+export default function Login({ onLogin, infoMessage}) {
+
+    const { values, errors, isValid, handleChange, setIsValid } = useFormWithValidation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onLogin(values.email, values.password);
+        setIsValid(false);
     }
 
     return (
@@ -41,7 +43,7 @@ export default function Login({ onLogin, infoMessage }) {
                     {errors.password ? errors.password : ''}
                 </span>
 
-                <p className='login__error'>{infoMessage.code === 500 ? "500 На сервере произошла ошибка." : infoMessage.message}</p>
+                <p className='login__error'>{infoMessage.code === 500 ? "500 На сервере произошла ошибка." : infoMessage.type === "login" ? infoMessage.message : ""}</p>
                 <button className='login__submit-btn' type="submit" disabled={!isValid}>Войти</button>
                 <p className='login__signup'>Ещё не зарегистрированы? <Link to='/signup' className='login__link'>Регистрация</Link></p>
             </form>
